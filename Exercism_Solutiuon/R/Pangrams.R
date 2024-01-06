@@ -15,6 +15,8 @@ is_pangram <- function(input) {
   return(length(cleaned_input) == 26)
 }
 
+
+###############################################################################
 is_pangram("The quick brown fox jumps over the lazy dog.")
 
 
