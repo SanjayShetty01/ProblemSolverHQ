@@ -27,7 +27,10 @@ sum_of_square1 <- function(number){
 }
 
 difference_of_squares1 <- function(natural_number) {
-  return(square_of_sum(natural_number) - sum_of_square(natural_number))
+  return(square_of_sum1(natural_number) - sum_of_square1(natural_number))
 }
 
 
+################################################################################
+
+bench::mark(difference_of_squares(200000), difference_of_squares1(200000), iterations = 100)
