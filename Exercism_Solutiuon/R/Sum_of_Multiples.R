@@ -6,7 +6,7 @@ get_multiples <- function(number, limit){
   }
   return(multiples)
 }
-  
+
 sum_of_multiples <- function(factors, limit) {
   multiples <- sapply(factors, get_multiples, limit = limit)
   return(sum(unique(unlist(multiples))))
