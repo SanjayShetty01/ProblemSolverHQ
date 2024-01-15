@@ -23,6 +23,34 @@ largest_series_product <- function(digits, span){
 
 
 
+##### moduluar functions
+
+
+number_product <- function(x) {
+  prod(as.numeric(strsplit(as.character(x), NULL)[[1]]))
+}
+
+
+calculate_products <- function(digits, span) {
+  numbers_split <- sapply(1:(nchar(digits) - (span - 1)), function(i) {
+    substr(digits, i, i + (span - 1))
+  })
+  sapply(numbers_split, number_product)
+}
+
+
+largest_series_product <- function(digits, span) {
+  stopifnot(nchar(digits) >= span, !grepl("\\D", digits), span > 1)
+  
+  numbers_prod <- calculate_products(digits, span)
+  
+  return(max(numbers_prod, na.rm = TRUE))
+}
+
+
+
+
+
 
 ################################################################################
 
