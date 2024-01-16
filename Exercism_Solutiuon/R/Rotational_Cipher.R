@@ -1,15 +1,11 @@
 get_rotated_character <- function(character, key) {
   if (character %in% LETTERS) {
     letter_position <- which(character == LETTERS)
-    new_position <- ifelse((letter_position + key) > 26,
-                           (letter_position + key) %% 26,
-                           (letter_position + key))
+    new_position <- (letter_position + key - 1) %% 26 + 1
     return(LETTERS[new_position])
   } else if (character %in% letters) {
     letter_position <- which(character == letters)
-    new_position <- ifelse((letter_position + key) > 26,
-                           (letter_position + key) %% 26,
-                           (letter_position + key))
+    new_position <- (letter_position + key - 1) %% 26 + 1
     return(letters[new_position])
   } else {
     return(character)
