@@ -1,3 +1,30 @@
+bottles <- function (n, b) {
+  if (n > 1) sprintf("%d bottles of beer", n) else
+    if (n > 0) "1 bottle of beer" else
+      if (b    ) "No more bottles of beer" else
+        "no more bottles of beer"
+}
+
+verse <- function (number) {
+  line2 <- if (number == 0) "Go to the store and buy some more" else
+    paste0("Take ", ifelse(number == 1, "it", "one"),		        
+           " down and pass it around")
+  paste0(bottles(number, TRUE),  " on the wall, ",
+         bottles(number, FALSE), ".\n",
+         line2, ", ", bottles(ifelse(number == 0, 99, number-1), FALSE),
+         " on the wall.\n")
+}
+
+lyrics <- function (first, last) {
+  paste(sapply(first:last, verse), sep="", collapse="\n")  
+}
+
+
+
+
+
+
+################################################################################
 lyrics <- function(first, last = NULL) {
   number_seq <- if (is.null(last)) first else first:last
   
