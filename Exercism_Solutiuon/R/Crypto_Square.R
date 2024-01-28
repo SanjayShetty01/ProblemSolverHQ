@@ -38,14 +38,13 @@ ciphertext <- function(input) {
   
   endcoded_string <- sapply(1:nchar(plain_segment[1]), 
                             \(i) sapply(plain_segment, substr, i, i))
-  g = apply(endcoded_string, c(1, 2), \(x) ifelse(x == "", " ", x))
   
-  v = paste0(g, collapse = "")
+  endcoded_string <- apply(endcoded_string, c(1, 2), 
+                           \(x) ifelse(x == "", " ", x))
   
-  strsplit(x = v, 
-           paste0("(?<=.{", 7, "})"),# regular expression to split
-           perl = TRUE) |>
-    unlist()
+  do.call(paste0, c(endcoded_string |> t() |> as.data.frame()  , collape = "")) |>
+    paste0(collapse = " ")
+  
 }
 
 
