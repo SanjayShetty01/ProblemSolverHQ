@@ -1,4 +1,4 @@
-tournament <- function (input) {
+tournament <- function(input) {
   input <- input[grepl("^[a-zA-Z ]*;[a-zA-Z ]*;(win|loss|draw)$", input)]
   
   
