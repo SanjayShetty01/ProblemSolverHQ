@@ -8,8 +8,9 @@ starts_with_STOP_handling <- function(split_rna, stop_values) {
 
 
 get_required_rna <- function(split_rna, stop_values){
-  stop_pos <- match(split_rna, stop_values)
-  split_rna_required <- ifelse(is.na(stop_pos), split_rna, split_rna[1:(stop_pos)])
+  stop_pos <- match(split_rna, stop_values) |> na.omit() |> as.integer()
+  stop_pos <- ifelse(is.integer(stop_pos) && length(stop_pos) == 0L, NA, min(stop_pos))
+  split_rna_required <- ifelse(is.na(stop_pos),split_rna, split_rna[1:(stop_pos)])
   return(split_rna_required)
 }
 
@@ -39,10 +40,10 @@ translate <- function(bases) {
   return(translated)
 }
 
-translate("UGGUGUUAUUAAUGGUUU")
+translate("UUUUUU")
 
 ###################################################################################
-rna <- "AUGUUUUGG"
+rna <- "UUUUUU"
 
 split_rna <- unlist(strsplit(rna, "(?<=.{3})", perl = TRUE))
 
@@ -50,9 +51,23 @@ split_rna
 
 stop_values <- c("UAA", "UAG", "UGA")
 
-match(stop_values, split_rna) |> 
+stop_pos <- match(split_rna, stop_values) |> na.omit() |> as.integer()
+
+stop_pos <- ifelse(is.integer(stop_pos) && length(stop_pos) == 0L, NA, min(stop_pos))
+
+split_rna_required <- ifelse(is.na(stop_pos),split_rna, split_rna[1:(stop_pos)])
+
+
+stop_pos <- match(split_rna, stop_values) |> na.omit() |> as.integer() |> min()
+split_rna_required <- ifelse(is.na(stop_pos) || (is.integer(stop_pos) && length(stop_pos) == 0L), 
+                              split_rna, split_rna[1:(stop_pos)])
+match(stop_values, split_rna) |> na.omit() |> as.numeric() |> min()
 
 stop_pos <- which(split_rna %in% stop_values) |> min()
+
+split_rna %in% stop_values |> which()
+
+
 
 split_rna_required <- split_rna[1:(stop_pos)]
 
